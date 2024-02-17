@@ -18,7 +18,7 @@ import { RouterLink } from 'vue-router';
 export default {
      methods: {
           onClickHend() {
-               return this.$router.push('/');
+               return this.$router.push({ name: 'home' });
           }
      },
      components: { RouterLink }

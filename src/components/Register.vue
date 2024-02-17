@@ -3,9 +3,9 @@
           <main class="form-signin m-auto w-25">
                <form>
                     <h1 class="h3 mb-3 fw-normal">Register</h1>
-                    <Input :label="'Name'" :type="'text'"></Input>
-                    <Input :label="'Email address'" :type="'email'"></Input>
-                    <Input :label="'Password'" :type="'password'"></Input>
+                    <Input :label="'Name'" :type="'text'" v-model="username"></Input>
+                    <Input :label="'Email address'" :type="'email'" v-model="email"></Input>
+                    <Input :label="'Password'" :type="'password'" v-model="password"></Input>
                     <Button type="submit" :disabled="isLoading" @click="regClick"> Register </Button>
                </form>
           </main>
@@ -13,6 +13,13 @@
 </template>
 <script>
 export default {
+     dsta() {
+          return {
+               username: '',
+               email: '',
+               password: '',
+          }
+     },
      computed: {
           isLoading() {
                return this.$store.state.auth.isLoading;
@@ -21,7 +28,17 @@ export default {
      methods: {
           regClick(e) {
                e.preventDefault();
-               this.$store.commit('setLoading')
+               const data = {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password
+               }
+               this.$store
+                    .dispatch('register', data)
+                    .then(user => {
+                         this.$router.push({ name: 'home' })
+                    })
+                    .catch(err => console.log('Error', err))
           }
      }
 }
