@@ -1,14 +1,15 @@
+import { setItem } from '../helpers/persistaneStorage';
 import AuthServics from "@/service/auth";
 const state = {
      isLoading: false,
      user: null,
-     error: null,
+     errors: null,
 }
 const mutations = {
      registerStart(state, payload) {
           state.isLoading = true;
           state.user = null;
-          state.error = null
+          state.errors = null
      },
      registerSuccess(state, payload) {
           state.isLoading = false
@@ -16,7 +17,7 @@ const mutations = {
      },
      registerFailure(state, payload) {
           state.isLoading = false;
-          state.errors = payload
+          state.errors = payload.errors;
      },
 }
 const actions = {
@@ -26,6 +27,7 @@ const actions = {
                AuthServics.register(user)
                     .then(response => {
                          context.commit('registerSuccess', response.data.user);
+                         setItem('token', response.data.user.token)
                          resolve(response.data.user)
                     })
                     .catch(error => {
