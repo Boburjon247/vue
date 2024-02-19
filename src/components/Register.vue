@@ -13,12 +13,13 @@
      </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import ValudationErr from "./ValudationErr.vue";
 export default {
      components: {
           ValudationErr
      },
-     dsta() {
+     data() {
           return {
                username: '',
                email: '',
@@ -26,12 +27,10 @@ export default {
           }
      },
      computed: {
-          isLoading() {
-               return this.$store.state.auth.isLoading;
-          },
-          valudationError() {
-               return this.$store.state.auth.errors
-          },
+          ...mapState({
+               isLoading: state => state.auth.isLoading,
+               valudationError: state => state.auth.errors,
+          }),
      },
      methods: {
           regClick(e) {
