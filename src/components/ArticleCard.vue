@@ -12,7 +12,8 @@
                     <p class="card-text">{{ article.title }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                          <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-outline-secondary">Read article</button>
+                              <button @click="navigation" type="button" class="btn btn-sm btn-outline-secondary">Read
+                                   article</button>
                          </div>
                          <small class="text-muted">{{ new Date(article.createdAt).toLocaleDateString('us') }}</small>
                     </div>
@@ -27,6 +28,11 @@ export default {
                type: Object,
                required: true
           }
-     }
+     },
+     methods: {
+          navigation() {
+               return this.$router.push(`/article/${this.article.slug}`)
+          }
+     },
 }
 </script>
