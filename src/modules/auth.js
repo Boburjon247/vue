@@ -6,6 +6,11 @@ const state = {
      errors: null,
      isLoggedIn: null,
 }
+// const getters = {
+//      currentUser: state => {
+//           return state.user
+//      }
+// }
 const mutations = {
      registerStart(state, payload) {
           state.isLoading = true;
@@ -41,6 +46,20 @@ const mutations = {
           state.errors = payload.errors;
           state.isLoggedIn = false
      },
+     currentUserStart(state) {
+          state.isLoading = true
+     },
+     currentUserSuccess(state, payload) {
+          state.isLoading = false
+          state.user = payload
+          state.isLoggedIn = true
+
+     },
+     currentUserFailure() {
+          state.isLoading = false;
+          state.user = null;
+          state.isLoggedIn = false
+     },
 }
 const actions = {
      register(context, user) {
@@ -72,10 +91,24 @@ const actions = {
                          reject(error.response.data)
                     })
           })
+     },
+     getCurrentGetUser(context) {
+          return new Promise((resolve) => {
+               context.commit('currentUserStart')
+               AuthServics.currentUser().then(
+                    response => {
+                         context.commit('currentUserSuccess', response.data.user);
+                         resolve(response.data.user)
+                    }
+               ).catch(
+                    () => { context.commit('currentUserFailure') }
+               )
+          })
      }
 }
 export default {
      state,
      mutations,
      actions,
+     // getters,
 }
