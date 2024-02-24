@@ -9,6 +9,7 @@
                          <RouterLink :to="{ name: 'home' }" class="me-3 py-2 text-dark text-decoration-none">
                               {{ user.username }}
                          </RouterLink>
+                         <a @click="logout" href="me-3 py-2 text-dark text-decoration-none">Logout</a>
                     </template>
                     <template v-if="!isLoggedIn">
                          <RouterLink :to="{ name: 'login' }" class="me-3 py-2 text-dark text-decoration-none">Login
@@ -28,6 +29,9 @@ export default {
      methods: {
           onClickHend() {
                return this.$router.push({ name: 'home' });
+          },
+          logout() {
+               return this.$store.dispatch('logout');
           }
      },
      components: { RouterLink },

@@ -13,6 +13,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getCurrentGetUser')
+    this.$store.dispatch('articles')
   }
 }
 </script>
