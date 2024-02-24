@@ -7,7 +7,7 @@
                     <Input :label="'Name'" :type="'text'" v-model="username"></Input>
                     <Input :label="'Email address'" :type="'email'" v-model="email"></Input>
                     <Input :label="'Password'" :type="'password'" v-model="password"></Input>
-                    <Button type="submit" :disabled="isLoading" @click="regClick"> Register </Button>
+                    <Button type="submit" :disabled="isLoding" @click="regClick"> Register </Button>
                </form>
           </main>
      </div>
@@ -28,7 +28,7 @@ export default {
      },
      computed: {
           ...mapState({
-               isLoading: state => state.auth.isLoading,
+               isLoding: state => state.auth.isLoding,
                valudationError: state => state.auth.errors,
           }),
      },

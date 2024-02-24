@@ -1,7 +1,7 @@
 import { removeItem, setItem } from '../helpers/persistaneStorage';
 import AuthServics from "@/service/auth";
 const state = {
-     isLoading: false,
+     isLoding: false,
      user: null,
      errors: null,
      isLoggedIn: null,
@@ -13,50 +13,50 @@ const state = {
 // }
 const mutations = {
      registerStart(state, payload) {
-          state.isLoading = true;
+          state.isLoding = true;
           state.user = null;
           state.errors = null
           state.isLoggedIn = null
      },
      registerSuccess(state, payload) {
-          state.isLoading = false
+          state.isLoding = false
           state.user = payload
           state.isLoggedIn = true
      },
      registerFailure(state, payload) {
-          state.isLoading = false;
+          state.isLoding = false;
           state.errors = payload.errors;
           state.isLoggedIn = false
 
      },
 
      loginStart(state, payload) {
-          state.isLoading = true;
+          state.isLoding = true;
           state.user = null;
           state.errors = null
           state.isLoggedIn = null
      },
      loginSuccess(state, payload) {
-          state.isLoading = false
+          state.isLoding = false
           state.user = payload
           state.isLoggedIn = true
      },
      loginFailure(state, payload) {
-          state.isLoading = false;
+          state.isLoding = false;
           state.errors = payload.errors;
           state.isLoggedIn = false
      },
      currentUserStart(state) {
-          state.isLoading = true
+          state.isLoding = true
      },
      currentUserSuccess(state, payload) {
-          state.isLoading = false
+          state.isLoding = false
           state.user = payload
           state.isLoggedIn = true
 
      },
      currentUserFailure() {
-          state.isLoading = false;
+          state.isLoding = false;
           state.user = null;
           state.isLoggedIn = false
      },

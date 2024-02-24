@@ -6,7 +6,7 @@
                     <ValudationErr v-if="valudationError" :valudationError="valudationError" />
                     <Input v-model="email" :label="'Email address'" :type="'email'"></Input>
                     <Input v-model="password" :label="'Password'" :type="'password'"></Input>
-                    <Button type="submit" :disabled="isLoading" @click="regClick"> Login </Button>
+                    <Button type="submit" :disabled="isLoding" @click="regClick"> Login </Button>
                </form>
           </main>
      </div>
@@ -26,15 +26,9 @@ export default {
      },
      computed: {
           ...mapState({
-               isLoading: state => state.auth.isLoading,
+               isLoding: state => state.auth.isLoding,
                valudationError: state => state.auth.errors,
           }),
-          // isLoading() {
-          //      return this.$store.state.auth.isLoading;
-          // },
-          // valudationError() {
-          //      return this.$store.state.auth.errors
-          // },
      },
      methods: {
           regClick(e) {

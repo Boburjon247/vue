@@ -1,8 +1,12 @@
 <template lang="html">
      <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-               <ArticleCard v-for="article in data" :article="article" :key="article.id" />
-               {{ data }}
+               <div v-if="isLoding">
+                    <div class="spinner-border" role="status">
+                         <span class="visually-hidden">Loading...</span>
+                    </div>
+               </div>
+               <ArticleCard v-else v-for="article in data" :article="article" :key="article.id" />
           </div>
      </div>
 </template>
@@ -16,7 +20,7 @@ export default {
      computed: {
           ...mapState({
                data: state => state.articles.data,
-               isLoading: state => state.articles.isLoading,
+               isLoding: state => state.articles.isLoding,
                error: state => state.articles.error,
           })
      },
