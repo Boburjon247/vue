@@ -4,7 +4,7 @@ const state = {
      data: null,
      isLoding: false,
      error: null,
-     articleData: null,
+     articleDetail: null,
 }
 const mutations = {
      getArticleStart(state) {
@@ -23,15 +23,14 @@ const mutations = {
 
      getArticleDetailStart(state) {
           state.isLoding = true
-          state.articleData = null
+          state.articleDetail = null
           state.error = null
+          state.data = null
+          state.articleDetail = null
      },
      getArticleDetailSuccess(state, payload) {
           state.isLoding = false
-          state.articleData = payload
-     },
-     getArticleDetailFailure(state) {
-          state.isLoding = false
+          state.articleDetail = payload
      },
 }
 const actions = {
@@ -47,11 +46,14 @@ const actions = {
           })
      },
      articleDetail(context, slug) {
-          return new Promise((resolve, reject) => {
+          return new Promise(resolve => {
                context.commit('getArticleDetailStart')
                ArticleService.articleDelail(slug)
-                    .than(response => {})
-                    .catch()
+                    .then(response => {
+                         context.commit('getArticleDetailSuccess', response.data.article)
+                         resolve(response.data.article)
+                    })
+                    .catch(() => context.commit('getArticleFailure'))
           })
      }
 }

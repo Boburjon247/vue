@@ -1,6 +1,6 @@
 <template lang="html">
      <div>
-          <Register />
+          <Register/>
      </div>
 </template>
 <script>

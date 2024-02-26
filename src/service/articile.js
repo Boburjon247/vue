@@ -4,7 +4,7 @@ const ArticleService = {
           return axios.get('/articles')
      },
      articleDelail(slug) {
-          return axios.get(`/article/${slug}`)
+          return axios.get(`/articles/${slug}`)
      }
 }
 export default ArticleService
