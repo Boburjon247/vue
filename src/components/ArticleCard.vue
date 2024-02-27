@@ -14,6 +14,9 @@
                          <div class="btn-group">
                               <button @click="navigation" type="button" class="btn btn-sm btn-outline-secondary">Read
                                    article</button>
+                              <button :disabled="isLoding" v-if="article.author.username == user.username"
+                                   @click="deleteArticle" type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+
                          </div>
                          <small class="text-muted">{{ new Date(article.createdAt).toLocaleDateString('us') }}</small>
                     </div>
@@ -22,6 +25,7 @@
      </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
      props: {
           article: {
@@ -29,9 +33,19 @@ export default {
                required: true
           }
      },
+     computed: {
+          ...mapState({
+               user: state => state.auth.user,
+               isLoding: state => state.articleHendel.isLoding
+          })
+     },
      methods: {
           navigation() {
                return this.$router.push(`/article/${this.article.slug}`)
+          },
+          deleteArticle() {
+               return this.$store.dispatch('deleteArticle', this.article.slug)
+               .then(()=>this.$store.dispatch('articles'))
           }
      },
 }
